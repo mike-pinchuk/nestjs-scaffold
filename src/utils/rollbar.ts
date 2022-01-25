@@ -6,3 +6,5 @@ export const rollbarConfig = new Rollbar({
   captureUncaught: true,
   captureUnhandledRejections: true,
 });
+
+rollbarConfig.log('Hello world!');

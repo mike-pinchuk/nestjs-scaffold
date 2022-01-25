@@ -4,17 +4,18 @@ import * as Joi from 'joi';
 const requiredEnvs = {
   DB_HOST: Joi.string().required(),
   DB_PORT: Joi.number().required(),
+  DB_PORTS: Joi.string().required(),
   DB_USERNAME: Joi.string().required(),
   DB_PASSWORD: Joi.string().required(),
   DB_NAME: Joi.string().required(),
   REDIS_HOST: Joi.string().required(),
-  REDIS_PORT: Joi.number().required(),
+  REDIS_PORT: Joi.string().required(),
 };
 
-const secretCodeEnv = {
-  JWT_ACCESS_KEY: Joi.string().required(),
-  JWT_REFRESH_KEY: Joi.string().required(),
-};
+// const secretCodeEnv = {
+//   JWT_ACCESS_KEY: Joi.string().required(),
+//   JWT_REFRESH_KEY: Joi.string().required(),
+// };
 
 const rollbarConfig = {
   ACCESS_TOKEN_ROLLBAR: Joi.string().required(),
@@ -31,7 +32,7 @@ const optionsEnvs = {
 const envs = {
   ...requiredEnvs,
   ...optionsEnvs,
-  ...secretCodeEnv,
+  // ...secretCodeEnv,
   ...rollbarConfig,
 };
 
@@ -44,7 +45,7 @@ const validateAndReturnTypedEnv = () => {
   });
   const { error, value } = Joi.object(requiredEnvs)
     .concat(Joi.object(optionsEnvs))
-    .concat(Joi.object(secretCodeEnv))
+    // .concat(Joi.object(secretCodeEnv))
     .concat(Joi.object(rollbarConfig))
     .validate(globalEnvs, { allowUnknown: false, abortEarly: true });
   if (error) {

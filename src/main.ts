@@ -1,5 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { expressMiddleware } from 'cls-rtracer';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { HttpStatus, ValidationPipe } from '@nestjs/common';
 
@@ -16,6 +17,7 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('/', app, document);
 
+  app.use(expressMiddleware());
   app.enableCors();
   app.useGlobalPipes(
     new ValidationPipe({
