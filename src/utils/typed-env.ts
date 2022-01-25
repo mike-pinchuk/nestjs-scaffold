@@ -16,6 +16,10 @@ const secretCodeEnv = {
   JWT_REFRESH_KEY: Joi.string().required(),
 };
 
+const rollbarConfig = {
+  ACCESS_TOKEN_ROLLBAR: Joi.string().required(),
+};
+
 const optionsEnvs = {
   NODE_ENV: Joi.string()
     .valid('local', 'development', 'production', 'string')
@@ -28,6 +32,7 @@ const envs = {
   ...requiredEnvs,
   ...optionsEnvs,
   ...secretCodeEnv,
+  ...rollbarConfig,
 };
 
 const validateAndReturnTypedEnv = () => {
@@ -40,6 +45,7 @@ const validateAndReturnTypedEnv = () => {
   const { error, value } = Joi.object(requiredEnvs)
     .concat(Joi.object(optionsEnvs))
     .concat(Joi.object(secretCodeEnv))
+    .concat(Joi.object(rollbarConfig))
     .validate(globalEnvs, { allowUnknown: false, abortEarly: true });
   if (error) {
     throw new Error(error.message);

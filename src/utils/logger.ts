@@ -1,5 +1,7 @@
 import { id } from 'cls-rtracer';
 import { createLogger, format, transports } from 'winston';
+import RollbarTransport from 'winston-transport-rollbar-3';
+import { rollbarConfig } from './rollbar';
 
 const { combine, timestamp, printf } = format;
 
@@ -25,5 +27,8 @@ export const logger = createLogger({
   transports: [
     new transports.Console(options.console),
     new transports.File(options.file),
+    new RollbarTransport({
+      rollbarConfig,
+    }),
   ],
 });
