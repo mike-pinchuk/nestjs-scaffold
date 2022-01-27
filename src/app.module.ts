@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from 'nestjs-config';
+import { TodoModule } from './todo/todo.module';
 import * as path from 'path';
 
 @Module({
@@ -12,6 +13,7 @@ import * as path from 'path';
       useFactory: (config: ConfigService) => config.get('database'),
       inject: [ConfigService],
     }),
+    TodoModule,
   ],
   controllers: [],
   providers: [],

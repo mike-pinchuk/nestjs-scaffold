@@ -9,7 +9,7 @@ export default {
   password: typedEnv.DB_PASSWORD,
   database: typedEnv.DB_NAME,
   entities: [path.join('dist', '**', '*.entity.{ts,js}')],
-  synchronize: false,
+  synchronize: true,
   migrations: ['dist/migrations/**/*.js'],
   cli: { migrationsDir: 'src/migrations' },
 };
