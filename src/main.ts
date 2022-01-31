@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import { expressMiddleware } from 'cls-rtracer';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { HttpStatus, ValidationPipe } from '@nestjs/common';
+import helmet from 'helmet';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -17,6 +18,7 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('/', app, document);
 
+  app.use(helmet());
   app.use(expressMiddleware());
   app.enableCors();
   app.useGlobalPipes(
