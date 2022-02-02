@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { TodoEntity } from '../repositories/todo/todo.entity';
 import { TodoRepositoryService } from '../repositories/todo/todo-repository.service';
 import { TodoDto } from './dto/request/todo-create-update.dto';
 import { plainToClass } from 'class-transformer';
@@ -14,8 +13,9 @@ export class TodoService {
     return plainToClass(TodoItemResponse, todoList);
   }
 
-  async createItem(todoDto: TodoDto): Promise<TodoEntity> {
-    return this.todoRepositoryService.createTodoItem(todoDto);
+  async createItem(todoDto: TodoDto): Promise<TodoItemResponse> {
+    const todoItem = this.todoRepositoryService.createTodoItem(todoDto);
+    return plainToClass(TodoItemResponse, todoItem);
   }
 
   async updateItem(id: number, todoDto: TodoDto): Promise<void> {
