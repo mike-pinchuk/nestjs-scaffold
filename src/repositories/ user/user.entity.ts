@@ -3,9 +3,12 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { TodoEntity } from '../todo/todo.entity';
 
 @Entity()
 export class UserEntity extends BaseEntity {
@@ -18,7 +21,7 @@ export class UserEntity extends BaseEntity {
   @Column({ nullable: false })
   email!: string;
 
-  @Column({ nullable: false, name: 'user_password' })
+  @Column({ nullable: false, name: 'user_password', select: false })
   userPassword!: string;
 
   @CreateDateColumn({ name: 'created_at' })
@@ -26,4 +29,8 @@ export class UserEntity extends BaseEntity {
 
   @UpdateDateColumn({ name: 'updated_at' })
   updatedAt!: Date;
+
+  @OneToMany(() => TodoEntity, (todo) => todo.user)
+  @JoinColumn({ name: 'id' })
+  todos?: TodoEntity[];
 }

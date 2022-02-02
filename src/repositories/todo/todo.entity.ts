@@ -3,9 +3,12 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { UserEntity } from '../ user/user.entity';
 
 @Entity('todo')
 export class TodoEntity extends BaseEntity {
@@ -21,9 +24,16 @@ export class TodoEntity extends BaseEntity {
   @Column({ type: 'boolean', name: 'is_done', default: false })
   isDone!: boolean;
 
+  @Column({ name: 'user_id' })
+  userId!: number;
+
   @CreateDateColumn({ name: 'created_at' })
   createdAt!: Date;
 
   @UpdateDateColumn({ name: 'updated_at' })
   updatedAt!: Date;
+
+  @ManyToOne(() => UserEntity, (user) => user.todos)
+  @JoinColumn({ name: 'user_id' })
+  user?: UserEntity;
 }
