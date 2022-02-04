@@ -1,24 +1,11 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { ConfigModule, ConfigService } from 'nestjs-config';
+import { CoreModule } from './core/core.module';
 import { TodoModule } from './todo/todo.module';
-import * as path from 'path';
 import { TodoRepositoryModule } from './repositories/todo/todo-repository.module';
 import { UserModule } from './user/user.module';
 
 @Module({
-  imports: [
-    ConfigModule.load(
-      path.resolve(__dirname, 'config', '**', '!(*.d).{ts,js}'),
-    ),
-    TypeOrmModule.forRootAsync({
-      useFactory: (config: ConfigService) => config.get('database'),
-      inject: [ConfigService],
-    }),
-    TodoModule,
-    TodoRepositoryModule,
-    UserModule,
-  ],
+  imports: [CoreModule, TodoModule, TodoRepositoryModule, UserModule],
   controllers: [],
   providers: [],
 })

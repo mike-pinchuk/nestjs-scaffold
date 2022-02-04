@@ -24,6 +24,9 @@ export class UserEntity extends BaseEntity {
   @Column({ nullable: false, name: 'user_password', select: false })
   userPassword!: string;
 
+  @Column({ nullable: false, name: 'refresh_token' })
+  refreshToken!: string;
+
   @CreateDateColumn({ name: 'created_at' })
   createdAt!: Date;
 
