@@ -25,4 +25,16 @@ export class UserService {
   async deleteUser(id: number): Promise<void> {
     await this.userRepositoryService.deleteUser(id);
   }
+
+  async findUserByEmail(email: string): Promise<UserDtoResponse | undefined> {
+    const result = await this.userRepositoryService.findUserByEmail(email);
+    return plainToClass(UserDtoResponse, result);
+  }
+
+  async setCurrentRefreshToken(refreshToken, userId): Promise<void> {
+    await this.userRepositoryService.setCurrentRefreshToken(
+      refreshToken,
+      userId,
+    );
+  }
 }

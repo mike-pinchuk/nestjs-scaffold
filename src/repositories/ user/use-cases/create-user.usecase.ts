@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { UserDto } from '../../../user/dto/request/user-create-update.dto';
 import { Repository } from 'typeorm';
 import { UserEntity } from '../user.entity';
+import { hashGenerator } from '../../../utils/hashGenerator';
 
 @Injectable()
 export class CreateUserUseCase {
@@ -11,7 +12,10 @@ export class CreateUserUseCase {
     private userRepository: Repository<UserEntity>,
   ) {}
 
-  async exec(todoDto: UserDto): Promise<UserEntity> {
-    return this.userRepository.save(todoDto);
+  async exec(userDto: UserDto): Promise<UserEntity> {
+    return this.userRepository.save({
+      ...userDto,
+      userPassword: hashGenerator(userDto.userPassword),
+    });
   }
 }

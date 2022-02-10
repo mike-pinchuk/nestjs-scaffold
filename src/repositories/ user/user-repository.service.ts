@@ -2,7 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { UserDto } from '../../user/dto/request/user-create-update.dto';
 import { CreateUserUseCase } from './use-cases/create-user.usecase';
 import { DeleteUserUseCase } from './use-cases/delete-user.usecase';
+import { FindUserByEmailUseCase } from './use-cases/findbyemail-user.usecase';
 import { GetUserUseCase } from './use-cases/get-user.usecase';
+import { SetRefreshTokenUserUseCase } from './use-cases/set-refresh-token-user.usecase';
 import { UpdateUserUseCase } from './use-cases/update-user.usecase';
 import { UserEntity } from './user.entity';
 
@@ -13,6 +15,8 @@ export class UserRepositoryService {
     private deleteUserUseCase: DeleteUserUseCase,
     private getUserUseCase: GetUserUseCase,
     private updateUserUseCase: UpdateUserUseCase,
+    private findUserByEmailUseCase: FindUserByEmailUseCase,
+    private setRefreshTokenUserUseCase: SetRefreshTokenUserUseCase,
   ) {}
 
   async getUserById(id: number): Promise<UserEntity> {
@@ -29,5 +33,13 @@ export class UserRepositoryService {
 
   async deleteUser(id: number): Promise<void> {
     await this.deleteUserUseCase.exec(id);
+  }
+
+  async findUserByEmail(email: string): Promise<UserEntity> {
+    return this.findUserByEmailUseCase.exec(email);
+  }
+
+  async setCurrentRefreshToken(refreshToken, id): Promise<void> {
+    await this.setRefreshTokenUserUseCase.exec(refreshToken, id);
   }
 }

@@ -18,7 +18,7 @@ services:
     image: 'redis:alpine'
     restart: unless-stopped
     ports:
-      - ${REDIS_PORTS}
+      - "6379:6379"
     command: --requirepass ${REDIS_PASSWORD}
     env_file:
       - .env
@@ -28,8 +28,8 @@ services:
     image: rediscommander/redis-commander:latest
     restart: unless-stopped
     environment:
-      - REDIS_HOSTS=${REDIS_COMMANDER_HOST}
+      - REDIS_HOSTS={$REDIS_COMMANDER_HOST}
     ports:
-      - '8081:8081'
+      - "8081:8081"
     depends_on:
       - redis

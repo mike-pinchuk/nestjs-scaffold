@@ -24,7 +24,7 @@ export class TodoEntity extends BaseEntity {
   @Column({ type: 'boolean', name: 'is_done', default: false })
   isDone!: boolean;
 
-  @Column({ name: 'user_id' })
+  @Column({ name: 'user_id', nullable: true })
   userId!: number;
 
   @CreateDateColumn({ name: 'created_at' })

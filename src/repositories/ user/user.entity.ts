@@ -1,3 +1,4 @@
+import { Exclude } from 'class-transformer';
 import {
   BaseEntity,
   Column,
@@ -10,7 +11,7 @@ import {
 } from 'typeorm';
 import { TodoEntity } from '../todo/todo.entity';
 
-@Entity()
+@Entity('user')
 export class UserEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
   id!: number;
@@ -24,8 +25,9 @@ export class UserEntity extends BaseEntity {
   @Column({ nullable: false, name: 'user_password', select: false })
   userPassword!: string;
 
-  @Column({ nullable: false, name: 'refresh_token' })
-  refreshToken!: string;
+  @Column({ nullable: true, name: 'refresh_token' })
+  @Exclude()
+  refreshToken?: string;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt!: Date;
