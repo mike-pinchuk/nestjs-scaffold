@@ -29,6 +29,9 @@ export class UserEntity extends BaseEntity {
   @Exclude()
   refreshToken?: string;
 
+  @Column({ default: 'USER' })
+  role?: string;
+
   @CreateDateColumn({ name: 'created_at' })
   createdAt!: Date;
 

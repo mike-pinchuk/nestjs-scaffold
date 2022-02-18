@@ -13,4 +13,7 @@ export class UserDtoResponse {
 
   @Expose()
   userPassword: string;
+
+  @Expose()
+  role: string;
 }

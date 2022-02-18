@@ -8,7 +8,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { UserEntity } from '../ user/user.entity';
+import { UserEntity } from '../user/user.entity';
 
 @Entity('todo')
 export class TodoEntity extends BaseEntity {

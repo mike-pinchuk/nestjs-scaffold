@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { plainToClass } from 'class-transformer';
-import { UserRepositoryService } from '../repositories/ user/user-repository.service';
+import { UserRepositoryService } from '../repositories/user/user-repository.service';
 import { UserDto } from './dto/request/user-create-update.dto';
 import { UserDtoResponse } from './dto/response/user.dto';
 
